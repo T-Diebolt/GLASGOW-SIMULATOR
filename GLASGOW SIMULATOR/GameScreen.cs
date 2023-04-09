@@ -7,6 +7,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Media;
+using GLASGOW_SIMULATOR.Properties;
 
 namespace GLASGOW_SIMULATOR
 {
@@ -25,6 +27,8 @@ namespace GLASGOW_SIMULATOR
         SolidBrush gB = new SolidBrush(Color.Lime);
 
         Random randGen = new Random();
+
+        SoundPlayer shotSound = new SoundPlayer(Resources.gunshot8bit);
 
         public GameScreen()
         {
@@ -170,11 +174,13 @@ namespace GLASGOW_SIMULATOR
             {
                 fShots.Add(new Shot(p1.x, this.Height - 2 * d, 3));
                 shoot = false;
+                shotSound.Play();
             }
             else if (spaceKeyDown && shoot && open)
             {
                 fShots.Add(new Shot(p1.x, d * (difficulty * 7 - 2), 1));
                 shoot = false;
+                shotSound.Play();
             }
             
 
@@ -282,6 +288,7 @@ namespace GLASGOW_SIMULATOR
 
         private void gameEngine_Tick_1(object sender, EventArgs e)
         {
+            
             //computer shots move
             foreach (Shot S in eShots)
             {
